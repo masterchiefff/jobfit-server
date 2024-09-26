@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { connectDB } = require('./config/db'); // Your database connection logic
 const authRoutes = require('./routes/authRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 require('dotenv').config();
 
@@ -17,7 +18,7 @@ app.use(bodyParser.json());
 
 // Configure session middleware
 app.use(session({
-    secret: 'yourSecretKey', // Change this to a strong secret key
+    secret: 'thisismysecretkey123', // Change this to a strong secret key
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false } // Set to true if using HTTPS
@@ -25,6 +26,7 @@ app.use(session({
 
 // Define routes
 app.use('/api/auth', authRoutes);
+app.use('/api', uploadRoutes);
 
 app.listen(process.env.PORT || 5000, () => {
     console.log(`Server running on port ${process.env.PORT || 5000}`);

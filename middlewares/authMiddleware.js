@@ -1,17 +1,10 @@
-// middleware/authMiddleware.js
-const jwt = require('jsonwebtoken');
-
-module.exports = function(req, res, next) {
-    const token = req.header('auth-token');
-    
-    if (!token) return res.status(401).send('Access denied');
-
-    try {
-        const verified = jwt.verify(token, process.env.JWT_SECRET);
-        
-        req.userId = verified.id; // Attach user ID from token to request object
-        next();
-    } catch (err) {
-        res.status(400).send('Invalid token');
+const authMiddleware = (req, res, next) => {
+    // Example of checking for a session or token (customize as needed)
+    if (!req.session.userId) {
+        return res.status(401).json({ message: 'Unauthorized' });
     }
+    req.userId = req.session.userId; // Attach user ID to request object for later use
+    next();
 };
+
+module.exports = authMiddleware;
