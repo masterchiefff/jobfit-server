@@ -26,7 +26,7 @@ app.use(session({
 
 // Define routes
 app.use('/api/auth', authRoutes);
-app.use('/api', uploadRoutes);
+app.use('/api/', uploadRoutes);
 
 app.listen(process.env.PORT || 5000, () => {
     console.log(`Server running on port ${process.env.PORT || 5000}`);
